@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PORT: ${DB_PORT}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - database-data:/var/lib/mysql
+    networks:
+      - smb-epeixoto-server
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    command: "apache2-foreground"
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - smb-epeixoto-server
+    depends_on:
+      - database
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    links:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_PORT: ${DB_PORT}
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 300M
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - smb-epeixoto-server
+    depends_on:
+      - database
+
+networks:
+  smb-epeixoto-server:
+    driver: bridge
+
+volumes:
+  database-data:
