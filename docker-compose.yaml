@@ -37,6 +37,21 @@ services:
     depends_on:
       - database
 
+  client:
+    image: node:14
+    container_name: client
+    working_dir: /app
+    volumes:
+      - ./src/client:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run serve"
+    ports:
+      - "3000:3000"
+    networks:
+      - smb-epeixoto-server
+    depends_on:
+      - web
+
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: phpmyadmin
