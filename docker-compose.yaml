@@ -23,6 +23,11 @@ services:
       dockerfile: Dockerfile
     container_name: web
     command: "apache2-foreground"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_ROOT_USER: ${DB_ROOT_USER}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - "80:80"
     volumes:
