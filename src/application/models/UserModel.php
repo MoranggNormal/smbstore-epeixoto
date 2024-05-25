@@ -61,7 +61,7 @@ class UserModel extends CI_Model
      *
      * @return array|bool The user's data if the login is successful, false otherwise.
      */
-    public function login(string $email, string $password): array|bool
+    public function login(string $email, string $password)
     {
         $this->db->select(
             'id, 
