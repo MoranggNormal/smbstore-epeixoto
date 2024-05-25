@@ -16,5 +16,6 @@ src/user_guide_src/cilexer/build/*
 src/user_guide_src/cilexer/dist/*
 src/user_guide_src/cilexer/pycilexer.egg-info/*
 src//vendor/
+src/uploads/*
 
 .env
