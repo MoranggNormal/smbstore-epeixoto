@@ -16,7 +16,6 @@ export const useAuth = defineStore("auth", {
     async setUser(state) {
       try {
         const response = await login(state.email, state.password);
-        console.log(response);
         this.user = response;
         this.authenticated = true;
       } catch (error) {
