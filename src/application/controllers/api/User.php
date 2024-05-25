@@ -32,7 +32,6 @@ class User extends CI_Controller
 			)
 		);
 
-		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
 		$this->form_validation->set_rules('first_name', 'First Name', 'required');
@@ -50,10 +49,10 @@ class User extends CI_Controller
 		}
 
 		$data = array(
-			'username' 		=> $this->input->post('username'),
 			'password' 	 	=> $this->input->post('password'),
 			'first_name' 	=> $this->input->post('first_name'),
 			'last_name'  	=> $this->input->post('last_name'),
+			'username' 		=> $this->input->post('first_name') . ' ' . $this->input->post('last_name'),
 			'email' 	 	=> $this->input->post('email'),
 			'phone' 	 	=> $this->input->post('phone'),
 			'birth_date' 	=> $this->input->post('birth_date'),
@@ -80,5 +79,4 @@ class User extends CI_Controller
 				));
 		}
 	}
-
 }
