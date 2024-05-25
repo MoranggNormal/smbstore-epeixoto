@@ -12,7 +12,6 @@ class UserModel extends CI_Model
 
     public function __construct(array $data = null)
     {
-
         $session = $this->session->userdata(config_item('auth')['LOGGED_USER']);
 
         $this->container['id'] = isset($session['id']) ? $session['id'] : null;
@@ -23,7 +22,7 @@ class UserModel extends CI_Model
         $this->container['password'] = isset($session['password']) ? $session['password'] : null;
         $this->container['phone'] = isset($session['phone']) ? $session['phone'] : null;
         $this->container['birth_date'] = isset($session['birth_date']) ? $session['birth_date'] : null;
-        $this->container['profile_pic'] = isset($session['profile_pic']) ? $session['profile_pic'] : null;
+        $this->container['profile_image'] = isset($session['profile_image']) ? $session['profile_image'] : null;
         $this->container['roles'] = isset($session['roles']) ? $session['roles'] : null;
 
         parent::__construct();
@@ -36,6 +35,18 @@ class UserModel extends CI_Model
 
     public function login($email, $password)
     {
+        $this->db->select(
+            'id, 
+            username,
+            first_name,
+            last_name,
+            email,
+            phone, 
+            birth_date, 
+            profile_image, 
+            roles'
+        );
+
         $this->db->where('email', $email);
         $this->db->where('password', md5($password));
 
@@ -60,7 +71,7 @@ class UserModel extends CI_Model
             'email' => $this->container['email'],
             'phone' => $this->container['phone'],
             'birth_date' => $this->container['birth_date'],
-            'profile_pic' => $this->container['profile_pic'],
+            'profile_image' => $this->container['profile_image'],
             'roles' => $this->container['roles'],
         );
 
@@ -260,25 +271,25 @@ class UserModel extends CI_Model
     }
 
     /**
-     * Gets profile_pic
+     * Gets profile_image
      *
      * @return string
      */
     public function getProfilePic()
     {
-        return $this->container['profile_pic'];
+        return $this->container['profile_image'];
     }
 
     /**
-     * Sets profile_pic
+     * Sets profile_image
      *
-     * @param string $profile_pic profile_pic
+     * @param string $profile_image profile_image
      *
      * @return $this
      */
-    public function setProfilePic($profile_pic)
+    public function setProfilePic($profile_image)
     {
-        $this->container['profile_pic'] = $profile_pic;
+        $this->container['profile_image'] = $profile_image;
 
         return $this;
     }
