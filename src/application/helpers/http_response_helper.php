@@ -10,6 +10,8 @@ if (!function_exists('http_response_code_map')) {
                     return 200;
                 case 'CREATED':
                     return 201;
+                case 'NOT_MODIFIED':
+                    return 304;
                 case 'BAD_REQUEST':
                     return 400;
                 case 'UNAUTHORIZED':
