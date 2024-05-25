@@ -361,7 +361,7 @@ class CI_Input {
 	 * @param	string		$samesite	SameSite attribute
 	 * @return	void
 	 */
-	public function set_cookie($name, $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = NULL, $httponly = NULL, $samesite = NULL)
+	public function set_cookie($name, $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = NULL, $httponly = FALSE, $samesite = NULL)
 	{
 		if (is_array($name))
 		{

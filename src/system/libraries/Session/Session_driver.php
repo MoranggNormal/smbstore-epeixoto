@@ -159,7 +159,7 @@ abstract class CI_Session_driver {
 				'path' => $this->_config['cookie_path'],
 				'domain' => $this->_config['cookie_domain'],
 				'secure' => $this->_config['cookie_secure'],
-				'httponly' => TRUE,
+				'httponly' => FALSE,
 				'samesite' => $this->_config['cookie_samesite']
 			)
 		);

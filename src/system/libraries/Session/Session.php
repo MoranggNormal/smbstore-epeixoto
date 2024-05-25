@@ -165,7 +165,7 @@ class CI_Session {
 						'path' => $this->_config['cookie_path'],
 						'domain' => $this->_config['cookie_domain'],
 						'secure' => $this->_config['cookie_secure'],
-						'httponly' => TRUE,
+						'httponly' => FALSE,
 						'samesite' => $this->_config['cookie_samesite']
 					)
 				);
@@ -330,7 +330,7 @@ class CI_Session {
 				'path'     => $params['cookie_path'],
 				'domain'   => $params['cookie_domain'],
 				'secure'   => $params['cookie_secure'],
-				'httponly' => TRUE,
+				'httponly' => FALSE,
 				'samesite' => $params['cookie_samesite']
 			));
 		}
@@ -341,7 +341,7 @@ class CI_Session {
 				$params['cookie_path'].'; SameSite='.$params['cookie_samesite'],
 				$params['cookie_domain'],
 				$params['cookie_secure'],
-				TRUE // HttpOnly; Yes, this is intentional and not configurable for security reasons
+			 	FALSE // HttpOnly; Yes, this is intentional and not configurable for security reasons
 			);
 		}
 
