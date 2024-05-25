@@ -9,9 +9,11 @@ class UserModel extends CI_Model
      */
 
     protected $container = [];
+
     public function __construct(array $data = null)
     {
-        $session = $this->session->userdata('logged_user');
+
+        $session = $this->session->userdata(config_item('auth')['LOGGED_USER']);
 
         $this->container['id'] = isset($session['id']) ? $session['id'] : null;
         $this->container['username'] = isset($session['username']) ? $session['username'] : null;
@@ -25,6 +27,44 @@ class UserModel extends CI_Model
         $this->container['roles'] = isset($session['roles']) ? $session['roles'] : null;
 
         parent::__construct();
+    }
+
+    public function register_user($data)
+    {
+        return $this->db->insert('users', $data);
+    }
+
+    public function login($email, $password)
+    {
+        $this->db->where('email', $email);
+        $this->db->where('password', md5($password));
+
+        $user = $this->db->get('users')->row_array();
+
+        return $user;
+    }
+
+    /**
+     * Get user basic data
+     *
+     * @return array
+     */
+    public function getData()
+    {
+
+        $user_data = array(
+            'id' => $this->container['id'],
+            'username' => $this->container['username'],
+            'first_name' => $this->container['first_name'],
+            'last_name' => $this->container['last_name'],
+            'email' => $this->container['email'],
+            'phone' => $this->container['phone'],
+            'birth_date' => $this->container['birth_date'],
+            'profile_pic' => $this->container['profile_pic'],
+            'roles' => $this->container['roles'],
+        );
+
+        return $user_data;
     }
 
     /**
