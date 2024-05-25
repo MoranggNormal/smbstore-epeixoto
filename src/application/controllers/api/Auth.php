@@ -3,11 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-    private $required_fields = array(
-        'email' => 'email',
-        'password' => 'password',
-    );
-
     private $user_session;
 
     public function __construct()
@@ -68,7 +63,7 @@ class Auth extends CI_Controller
             return $this->output
                 ->set_content_type('application/json')
                 ->set_status_header(http_response_code_map('OK'))
-                ->set_output(json_encode($this->UserModel->getData()));
+                ->set_output(json_encode($logged_user));
         } else {
             return $this->output
                 ->set_content_type('application/json')
