@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `phone` varchar(255) NOT NULL,
   `birth_date` timestamp NOT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL,
+  `roles` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 
