@@ -69,7 +69,6 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 		$this->form_validation->set_rules('birth_date', 'Birth Date', 'required');
-		$this->form_validation->set_rules('profile_image', 'Profile Image', 'required');
 
 		if ($this->form_validation->run() === FALSE) {
 
@@ -92,8 +91,27 @@ class User extends CI_Controller
 			'email' 	 	=> $this->input->post('email'),
 			'phone' 	 	=> $this->input->post('phone'),
 			'birth_date' 	=> $this->input->post('birth_date'),
-			'profile_image' => $this->input->post('profile_image'),
+			'profile_image' => '',
 		);
+
+		$upload_path 			 = 'uploads/';
+		$config['upload_path']   = $upload_path;
+		$config['allowed_types'] = 'gif|jpg|jpeg|png|webp|avif';
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('profile_image')) {
+			$error = array('error' => $this->upload->display_errors());
+
+			return $this->output
+				->set_content_type('application/json')
+				->set_status_header(http_response_code_map('BAD_REQUEST'))
+				->set_output(json_encode($error));
+		} else {
+			$image_file = $this->upload->data();
+
+			$data['profile_image'] = $upload_path . $image_file["file_name"];
+		}
 
 		$data['password'] = md5($data['password']);
 
