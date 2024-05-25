@@ -19,12 +19,8 @@ Vue.use(PiniaVuePlugin);
 Vue.config.productionTip = false;
 
 Vue.prototype.$pushLocation = function (location = "/") {
-  const cookie = this.$cookies.get("ci_session");
-
-  if (cookie) {
-    this.$root.currentRoute = location;
-    window.history.pushState(null, "", location);
-  }
+  this.$root.currentRoute = location;
+  window.history.pushState(null, "", location);
 };
 
 const pinia = createPinia();
