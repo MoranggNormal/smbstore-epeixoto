@@ -7,9 +7,13 @@ class UserModel extends CI_Model
      *
      * @var mixed[]
      */
-
     protected $container = [];
 
+    /**
+     * UserModel constructor.
+     *
+     * @param array $data Optional data to initialize the model.
+     */
     public function __construct(array $data = null)
     {
         $session = $this->session->userdata(config_item('auth')['LOGGED_USER']);
@@ -28,12 +32,36 @@ class UserModel extends CI_Model
         parent::__construct();
     }
 
+    /**
+     * Registers a new user in the database.
+     *
+     * @param array $data An associative array containing the user's data.
+     *                      The array should include the following keys:
+     *                          - 'username' (string) - The user's concatenated first name and last name.
+     *                          - 'email' (string) - The user's email address.
+     *                          - 'password' (string) - The user's password, hashed before insertion.
+     *                          - 'first_name' (string) - The user's first name.
+     *                          - 'last_name' (string) - The user's last name.
+     *                          - 'phone' (string) - The user's phone number.
+     *                          - 'birth_date' (string) - The user's birth date in Y-m-d format.
+     *                          - 'profile_image' (string) - The user's profile image URL.
+     *
+     * @return bool|int True on success, false on failure, or the ID of the inserted user if using auto-increment IDs.
+     */
     public function register_user($data)
     {
         return $this->db->insert('users', $data);
     }
 
-    public function login($email, $password)
+    /**
+     * Logs the user into the system.
+     *
+     * @param string $email The user's email address.
+     * @param string $password The user's password.
+     *
+     * @return array|bool The user's data if the login is successful, false otherwise.
+     */
+    public function login(string $email, string $password): array|bool
     {
         $this->db->select(
             'id, 
@@ -56,9 +84,9 @@ class UserModel extends CI_Model
     }
 
     /**
-     * Get user basic data
+     * Gets the user's data.
      *
-     * @return array
+     * @return array The user's data.
      */
     public function getData()
     {
@@ -79,9 +107,9 @@ class UserModel extends CI_Model
     }
 
     /**
-     * Gets id
+     * Gets the user's ID.
      *
-     * @return int
+     * @return int The user's ID.
      */
     public function getId()
     {
@@ -287,7 +315,7 @@ class UserModel extends CI_Model
      *
      * @return $this
      */
-    public function setProfilePic($profile_image)
+    public function setProfileImage($profile_image)
     {
         $this->container['profile_image'] = $profile_image;
 
