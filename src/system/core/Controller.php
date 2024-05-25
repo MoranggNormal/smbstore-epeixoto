@@ -67,6 +67,13 @@ class CI_Controller {
 	public $load;
 
 	/**
+	 * Reference to the user session
+	 *
+	 * @var	string
+	 */
+    public $user_session_data;
+
+	/**
 	 * Class constructor
 	 *
 	 * @return	void
@@ -85,6 +92,8 @@ class CI_Controller {
 
 		$this->load =& load_class('Loader', 'core');
 		$this->load->initialize();
+		$this->user_session_data = config_item('auth')['LOGGED_USER'];
+		
 		log_message('info', 'Controller Class Initialized');
 	}
 
