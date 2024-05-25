@@ -18,6 +18,8 @@ export const useAuth = defineStore("auth", {
         const response = await login(state.email, state.password);
         this.user = response;
         this.authenticated = true;
+
+        return true;
       } catch (error) {
         this.authenticated = false;
         this.authError = {
