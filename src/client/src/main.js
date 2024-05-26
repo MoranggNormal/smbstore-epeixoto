@@ -30,7 +30,7 @@ const app = new Vue({
   el: "#app",
   data() {
     return {
-      store: useAuth(),
+      auth: useAuth(),
       currentRoute: window.location.pathname,
     };
   },
@@ -48,7 +48,7 @@ const app = new Vue({
     const cookie = this.$cookies.get("ci_session");
 
     if (cookie) {
-      this.store.setSessionUser();
+      this.auth.setSessionUser();
     }
   },
   render(h) {

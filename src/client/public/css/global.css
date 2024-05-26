@@ -2,7 +2,25 @@
     background-color: #1b263b;
 }
 
+.bg-primary-light{
+    background-color: #1b263b70;
+}
+
 .form-error-message {
     margin: 0 0.7rem;
     color: red;
-  }
+}
+
+.capitalize{
+    text-transform: capitalize;
+}
+
+.font-light{
+    color: #383838;
+    font-weight: 400;
+}
+
+.font-black{
+    color: #383838;
+    font-weight: 800;
+}
