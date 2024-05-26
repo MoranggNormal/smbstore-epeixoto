@@ -1,10 +1,12 @@
 <template>
-    <p>Welcome home</p>
+    <p></p>
 </template>
   
   <script>
 export default {
   name: "NotFoundPage",
-  components: {},
+  mounted(){
+    this.$pushLocation()
+  }
 };
 </script>
