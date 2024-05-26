@@ -35,6 +35,21 @@ Foi preparado um ambiente em docker contendo as seguintes tecnologias:
 - MySQL:
   - Criação de tabelas e colunas para bom funcionamento da plataforma; 
   - ![image](https://github.com/MoranggNormal/smbstore-epeixoto/assets/72574532/bfd15a00-9098-425d-9769-6a70a36c1af0)
+  
+Exemplo de .env:
+
+```
+SERVER_HOST="http://localhost"
+CLIENT_HOST="http://localhost:3000"
+
+DB_HOST="database"
+DB_PORT=3306
+DB_NAME="smbepeixoto"
+DB_ROOT_USER="root"
+DB_ROOT_PASSWORD="root"
+DB_USER="smb"
+DB_PASSWORD="smb"
+```
 
 Não criei uma documentação completa para a API por falta de tempo, como explicado nos [vídeos de resultados.](https://www.youtube.com/watch?v=sgwNaEUbUAU&list=PLX00v7ikWSwd0bIZFLjBQ29ch6YhsebMn)
 
