@@ -2,8 +2,13 @@
 
 https://smb.epeixoto.dev
 
-
 [Vídeos demonstrativos](https://www.youtube.com/watch?v=sgwNaEUbUAU&list=PLX00v7ikWSwd0bIZFLjBQ29ch6YhsebMn)
+
+---
+
+## Atenção:
+
+Utilize a branch **DEV** para aproveitar 100% do projeto, precisei fazer alterações hardcode na branch **master** para fazer deploy (e não vou conseguir dar devida atenção a isso agora, preciso finalizar outro projeto em tempo recorde!).
 
 ---
 
@@ -19,23 +24,30 @@ Foi preparado um ambiente em docker contendo as seguintes tecnologias:
 
 - CodeIgniter 3:
 
-  - Criação das rotas **/api/store\*\*** e **/api/auth\*\***;
-  - Cadastro/Login/Logout utilizando o session do codeigniter;
-  - Validação de formulários;
-  - Boas práticas de código, como documentação de parâmetros da API e uso de constantes para praticidade;
+```diff
++ Criação das rotas **/api/store\*\*** e **/api/auth\*\***;
++ Cadastro/Login/Logout utilizando o session do codeigniter;
++ Validação de formulários;
++ Boas práticas de código, como documentação de parâmetros da API e uso de constantes para praticidade;
+```
 
 - VueJS 2:
 
-  - Materialize CSS para estilização;
-  - Pinia para gerenciamento de estados;
-  - Axios para manuseio de API;
-  - Vue-the-mask para aplicar máscara em formulários;
-  - Boas práticas de código, como documentacao de parâmetros da API e uso de constantes para praticidade;
+```diff
++ Materialize CSS para estilização;
++ Pinia para gerenciamento de estados;
++ Axios para manuseio de API;
++ Vue-the-mask para aplicar máscara em formulários;
++ Boas práticas de código, como documentacao de parâmetros da API e uso de constantes para praticidade;
+```
 
 - MySQL:
-  - Criação de tabelas e colunas para bom funcionamento da plataforma; 
-  - ![image](https://github.com/MoranggNormal/smbstore-epeixoto/assets/72574532/bfd15a00-9098-425d-9769-6a70a36c1af0)
-  
+
+```diff
++ Criação de tabelas e colunas para bom funcionamento da plataforma;
+```
+![image](https://github.com/MoranggNormal/smbstore-epeixoto/assets/72574532/bfd15a00-9098-425d-9769-6a70a36c1af0)
+
 Exemplo de .env:
 
 ```
