@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { deleteStoreUser, initialize } from "../services/stores";
+import { registerUserOnStore, deleteStoreUser, initialize } from "../services/stores";
 
 export const useStores = defineStore("stores", {
   state: () => ({
@@ -13,6 +13,16 @@ export const useStores = defineStore("stores", {
       try {
         const response = await initialize();
         this.stores = response;
+
+        return true;
+      } catch (error) {
+        this.hasFetchError = true;
+      }
+    },
+
+    async registerUserOnStore(state) {
+      try {
+        await registerUserOnStore({ ...state });
 
         return true;
       } catch (error) {
