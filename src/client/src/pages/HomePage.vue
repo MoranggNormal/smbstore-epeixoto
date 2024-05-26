@@ -11,6 +11,11 @@
         </div>
       </nav>
 
+      <div v-if="store.stores.length < 1">
+        <h2>Não há lojas ou usuários cadastrados.</h2>
+        <p>Para começar, cadastre uma loja com no mínimo um usuário.</p>
+      </div>
+
       <div v-if="store.stores.length > 0">
         <section
           class="store-list row"
