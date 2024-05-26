@@ -14,7 +14,7 @@
                 class="validate"
                 required
               />
-              <label for="email">Email</label>
+              <label for="email">E-mail</label>
             </div>
             <div class="input-field col s12">
               <input
@@ -24,7 +24,7 @@
                 class="validate"
                 required
               />
-              <label for="password">Password</label>
+              <label for="password">Senha</label>
             </div>
             <span class="form-error-message" v-if="auth.authError.hasAuthError">
               {{ auth.authError.message }}
