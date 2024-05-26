@@ -92,7 +92,7 @@
             class="register-btn btn waves-effect waves-light col s12"
             type="submit"
           >
-            Cadastrar
+            Salvar
           </button>
         </div>
       </form>
