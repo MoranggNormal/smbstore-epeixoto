@@ -45,11 +45,11 @@ const app = new Vue({
     },
   },
   created() {
-    // const cookie = this.$cookies.get("ci_session");
+    const cookie = this.$cookies.get("ci_session");
 
-    // if (cookie) {
+    if (cookie) {
       this.auth.setSessionUser();
-    // }
+    }
   },
   render(h) {
     return h(this.ViewComponent);
