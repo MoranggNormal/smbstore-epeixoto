@@ -84,9 +84,14 @@
               v-for="user in store.users"
               :key="user.id"
             >
-              <button v-if="auth.user.isAdmin" class="btn-small tiny edit">
+              <button
+                v-if="auth.user.isAdmin"
+                @click="editUser(user.id)"
+                class="btn-small tiny edit"
+              >
                 <i class="material-icons">edit</i>
               </button>
+
               <button
                 v-if="auth.user.isAdmin"
                 class="btn-small tiny delete"
@@ -167,7 +172,10 @@ export default {
 
       this.filteredStores = this.store.stores;
     },
-
+    editUser(userId) {
+      this.store.setUserStoreToBeEdited(userId);
+      this.$pushLocation("/editarUsuario");
+    },
     withFilter() {
       if (
         this.search.name ||

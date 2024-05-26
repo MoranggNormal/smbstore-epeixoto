@@ -168,6 +168,7 @@ class Store extends CI_Controller
 		$upload_path 			 = 'uploads/';
 		$config['upload_path']   = $upload_path;
 		$config['allowed_types'] = 'gif|jpg|jpeg|png|webp|avif';
+		$config['encrypt_name'] = TRUE;
 
 		$this->load->library('upload', $config);
 
@@ -198,6 +199,81 @@ class Store extends CI_Controller
 			->set_status_header(http_response_code_map('CREATED'))
 			->set_output(json_encode(array('status' => 'success', 'message' => 'User created successfully')));
 	}
+
+	public function edit_user()
+	{
+		$this->form_validation->set_rules('user_id', 'UserId', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email');
+
+		if ($this->form_validation->run() == FALSE) {
+			return $this->output
+				->set_content_type('application/json')
+				->set_status_header(http_response_code_map('BAD_REQUEST'))
+				->set_output(validation_errors());
+		}
+		$data = array(
+			'id' => $this->input->post('user_id'),
+		);
+
+		if ($this->input->post('store_id')) {
+			$data['store_id'] = $this->input->post('store_id');
+		}
+
+		if ($this->input->post('first_name') && $this->input->post('last_name')) {
+			$data['username'] = $this->input->post('first_name') . ' ' . $this->input->post('last_name');
+			$data['first_name'] = $this->input->post('first_name');
+			$data['last_name'] = $this->input->post('last_name');
+		}
+
+		if ($this->input->post('email')) {
+			$data['email'] = $this->input->post('email');
+		}
+
+		if ($this->input->post('phone')) {
+			$data['phone'] = $this->input->post('phone');
+		}
+
+		if ($this->input->post('birth_date')) {
+			$data['birth_date'] = $this->input->post('birth_date');
+		}
+		
+		if (!empty($_FILES['profile_image']['name'])) {
+			$upload_path = 'uploads/';
+			$config['upload_path'] = $upload_path;
+			$config['allowed_types'] = 'gif|jpg|jpeg|png|webp|avif';
+			$config['encrypt_name'] = TRUE;
+
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('profile_image')) {
+				$error = array('error' => $this->upload->display_errors());
+
+				return $this->output
+					->set_content_type('application/json')
+					->set_status_header(http_response_code_map('BAD_REQUEST'))
+					->set_output(json_encode($error));
+			}
+
+			$image_file = $this->upload->data();
+
+			$data['profile_image'] = $upload_path . $image_file["file_name"];
+		}
+
+		$edited = $this->StoreModel->edit_store_user($data);
+
+		if (!$edited) {
+			return $this->output
+				->set_content_type('application/json')
+				->set_status_header(http_response_code_map('BAD_REQUEST'))
+				->set_output(json_encode(array('status' => 'error', 'message' => 'Failed to update user data')));
+		}
+
+		return $this->output
+			->set_content_type('application/json')
+			->set_status_header(http_response_code_map('OK'))
+			->set_output(json_encode(array('status' => 'success', 'message' => 'User updated successfully')));
+	}
+
 
 	public function delete_store_user()
 	{

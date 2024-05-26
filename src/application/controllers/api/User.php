@@ -97,6 +97,7 @@ class User extends CI_Controller
 		$upload_path 			 = 'uploads/';
 		$config['upload_path']   = $upload_path;
 		$config['allowed_types'] = 'gif|jpg|jpeg|png|webp|avif';
+		$config['encrypt_name'] = TRUE;
 
 		$this->load->library('upload', $config);
 

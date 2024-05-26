@@ -95,6 +95,58 @@ export async function registerUserOnStore({
 }
 
 /**
+ * Edits a user's information on a specific store.
+ *
+ * @param {string} user_id - The ID of the user to be edited on the store.
+ * @param {string} first_name - The new first name of the user.
+ * @param {string} last_name - The new last name of the user.
+ * @param {string} email - The new email of the user.
+ * @param {string} phone - The new phone number of the user.
+ * @param {string} birth_date - The new birth date of the user.
+ * @param {File} profile_image - The new profile image of the user.
+ * @param {number} store_id - The ID of the store where the user is registered.
+ *
+ * @returns {Promise<Object>} - A promise that resolves to the server response data.
+ *
+ * @throws {Error} - If the server returns an error response, the error message will be thrown.
+ */
+export async function editStoreUser({
+  user_id,
+  first_name,
+  last_name,
+  email,
+  phone,
+  birth_date,
+  profile_image,
+  store_id,
+}) {
+  let data = new FormData();
+
+  data.append("user_id", user_id);
+  data.append("first_name", first_name);
+  data.append("last_name", last_name);
+  data.append("email", email);
+  data.append("phone", phone);
+  data.append("birth_date", birth_date);
+  data.append("profile_image", profile_image);
+  data.append("store_id", store_id);
+
+  return await axios
+    .post("/store/edit_user", data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data);
+      } else {
+        console.log(error.message);
+        throw new Error(error.message);
+      }
+    });
+}
+
+/**
  * Deletes a user from a specific store.
  *
  * @param {string} userId - The ID of the user to be deleted from the store.

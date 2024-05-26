@@ -96,6 +96,13 @@ class StoreModel extends CI_Model
         return $this->db->insert('store_users', $data);
     }
 
+    public function edit_store_user($data)
+    {
+        $this->db->where('id', $data["id"]);
+
+        return $this->db->update('store_users', $data);
+    }
+
     public function set_user_as_inactive($data)
     {
         $this->db->where('id', $data["id"]);

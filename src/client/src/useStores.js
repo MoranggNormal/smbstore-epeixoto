@@ -4,11 +4,13 @@ import {
   registerUserOnStore,
   deleteStoreUser,
   initialize,
+  editStoreUser,
 } from "../services/stores";
 
 export const useStores = defineStore("stores", {
   state: () => ({
     stores: [],
+    userStoreToBeEdited: null,
     hasFetchError: false,
   }),
 
@@ -34,6 +36,23 @@ export const useStores = defineStore("stores", {
       }
     },
 
+    async setUserStoreToBeEdited(userId) {
+      if (userId) {
+        this.userStoreToBeEdited = userId;
+      }
+    },
+
+    async editStoreUser(state) {
+      try {
+        await editStoreUser({ ...state });
+
+        this.userStoreToBeEdited = null;
+        return true;
+      } catch (error) {
+        this.hasFetchError = true;
+      }
+    },
+
     async deleteStoreUser(userId) {
       try {
         await deleteStoreUser(userId);
@@ -48,6 +67,19 @@ export const useStores = defineStore("stores", {
         return true;
       } catch (error) {
         this.hasFetchError = true;
+      }
+    },
+
+    getStoreUserDataById(userId) {
+      const userData = this.stores.filter((store) => {
+        return store.users.find((user) => user.id == userId);
+      });
+
+      if (userData.length > 0) {
+        return {
+          storeId: userData[0].id,
+          userData: userData[0].users[0],
+        };
       }
     },
   },
