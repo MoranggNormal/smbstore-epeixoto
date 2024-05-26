@@ -6,6 +6,10 @@
     background-color: #1b263b70;
 }
 
+.bg-transparent{
+    background-color: transparent;
+}
+
 .form-error-message {
     margin: 0 0.7rem;
     color: red;
@@ -24,3 +28,8 @@
     color: #383838;
     font-weight: 800;
 }
+
+.text-black{
+    color: #383838;
+}
+

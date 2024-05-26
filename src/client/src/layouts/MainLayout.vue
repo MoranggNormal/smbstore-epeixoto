@@ -30,6 +30,6 @@ export default {
   background: #f9f7f5;
 }
 .content {
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>

@@ -1,25 +1,70 @@
 <template>
   <main-layout>
     <div class="container">
-      <nav class="nav-extended bg-primary-light">
+      <nav class="nav-extended">
         <div class="nav-content">
-          <ul class="tabs tabs-transparent">
-            <li class="tab"><a href="#test1">Test 1</a></li>
-            <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-            <li class="tab"><a href="#test4">Test 4</a></li>
+          <ul class="tabs">
+            <li class="tab">
+              <input
+                v-model="search.name"
+                placeholder="Buscar por nome"
+                @input="withFilter"
+              />
+            </li>
+            <li class="tab">
+              <input
+                v-model="search.email"
+                placeholder="Buscar por email"
+                @input="withFilter"
+              />
+            </li>
           </ul>
         </div>
       </nav>
 
-      <div v-if="store.stores.length < 1">
-        <h2>Não há lojas ou usuários cadastrados.</h2>
+      <nav class="nav-extended">
+        <div class="nav-content">
+          <ul class="tabs">
+            <li class="tab text-black">
+              Data minima
+              <label for="startDate">
+                <input
+                  type="date"
+                  id="startDate"
+                  name="startDate"
+                  required
+                  v-model="search.startDate"
+                  @input="withFilter"
+                />
+              </label>
+            </li>
+
+            <li class="tab text-black" style="margin-left: 10em">
+              Data maxima
+              <label for="endDate">
+                <input
+                  type="date"
+                  id="endDate"
+                  name="endDate"
+                  required
+                  v-model="search.endDate"
+                  @input="withFilter"
+                />
+              </label>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div v-if="filteredStores.length < 1">
+        <h2>Não foram encontrados lojas ou usuários.</h2>
         <p>Para começar, cadastre uma loja com no mínimo um usuário.</p>
       </div>
 
-      <div v-if="store.stores.length > 0">
+      <div v-if="filteredStores.length > 0">
         <section
           class="store-list row"
-          v-for="store in store.stores"
+          v-for="store in filteredStores"
           :key="store.id"
         >
           <h5>
@@ -31,10 +76,11 @@
               v-for="user in store.users"
               :key="user.id"
             >
-              <button class="btn-small tiny edit">
+              <button v-if="auth.user.isAdmin" class="btn-small tiny edit">
                 <i class="material-icons">edit</i>
               </button>
               <button
+                v-if="auth.user.isAdmin"
                 class="btn-small tiny delete"
                 @click="deleteUser(user.id)"
               >
@@ -78,6 +124,7 @@
 </template>
 
 <script>
+import { useAuth } from "@/useAuth";
 import { useStores } from "../useStores";
 
 import MainLayout from "@/layouts/MainLayout.vue";
@@ -90,16 +137,81 @@ export default {
   data() {
     return {
       store: useStores(),
-      currentRoute: window.location.pathname,
+      auth: useAuth(),
+      search: {
+        name: "",
+        email: "",
+        startDate: "",
+        endDate: "",
+      },
+      filteredStores: [],
     };
   },
   methods: {
-    deleteUser(userId) {
-      this.store.deleteStoreUser(userId);
+    async deleteUser(userId) {
+      await this.store.deleteStoreUser(userId);
+
+      this.filteredStores = this.store.stores;
+    },
+
+    withFilter() {
+      if (this.search.name || this.search.email || this.search.startDate) {
+        const searchName = this.search.name.toLowerCase();
+        const searchEmail = this.search.email.toLowerCase();
+        const searchStartDate = this.search.startDate;
+        const searchEndDate = this.search.endDate;
+
+        this.filteredStores = this.store.stores
+          .map((store) => {
+            if (
+              store.users.some((user) =>
+                user.email.toLowerCase().includes(searchEmail)
+              )
+            ) {
+              const filteredUsers = store.users.filter((user) => {
+                const nameMatch = user.username
+                  .toLowerCase()
+                  .includes(searchName);
+                const emailMatch = user.email
+                  .toLowerCase()
+                  .includes(searchEmail);
+
+                const startDateMatch = searchStartDate
+                  ? new Date(user.birth_date) >= new Date(searchStartDate)
+                  : true;
+
+                const endDateMatch = searchEndDate
+                  ? new Date(user.birth_date) <= new Date(searchEndDate)
+                  : true;
+
+                return (
+                  nameMatch && emailMatch && startDateMatch && endDateMatch
+                );
+              });
+
+              return {
+                ...store,
+                users: filteredUsers,
+              };
+            } else {
+              return {
+                ...store,
+                users: [],
+              };
+            }
+          })
+          .filter((store) => store.users.length > 0);
+
+        return;
+      }
+
+      this.filteredStores = this.store.stores;
     },
   },
-  created() {
-    this.store.setStores();
+  async created() {
+    await this.store.setStores();
+
+    this.filteredStores = this.store.stores;
   },
 };
 </script>
@@ -147,5 +259,13 @@ export default {
   text-transform: uppercase;
   width: 100%;
   margin-left: 2em;
+}
+
+ul.tabs .tab {
+  margin: 0 1em;
+}
+
+ul.tabs .tab input::placeholder {
+  color: black;
 }
 </style>
