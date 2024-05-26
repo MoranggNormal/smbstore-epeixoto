@@ -6,6 +6,50 @@ class StoreModel extends CI_Model
         parent::__construct();
     }
 
+    public function get_store_and_users()
+    {
+        $this->db->select(
+            'store.id as store_id, 
+            store.name as store_name, 
+            store_users.id as user_id, 
+            store_users.username as user_username,
+            store_users.first_name as user_first_name, 
+            store_users.last_name as user_last_name, 
+            store_users.email as user_email, 
+            store_users.phone as user_phone, 
+            store_users.birth_date as user_birth_date,
+            store_users.profile_image as user_profile_image'
+        );
+        $this->db->from('store');
+        $this->db->join('store_users', 'store.id = store_users.store_id');
+        $query = $this->db->get();
+
+        $stores = array();
+
+        foreach ($query->result() as $row) {
+            $store_id = $row->store_id;
+            if (!isset($stores[$store_id])) {
+                $stores[$store_id] = array(
+                    'id' => $store_id,
+                    'name' => $row->store_name,
+                    'users' => array()
+                );
+            }
+            $stores[$store_id]['users'][] = array(
+                'id' => $row->user_id,
+                'username' => $row->user_username,
+                'first_name' => $row->user_first_name,
+                'last_name' => $row->user_last_name,
+                'email' => $row->user_email,
+                'phone' => $row->user_phone,
+                'birth_date' => $row->user_birth_date,
+                'profile_image' => $row->user_profile_image,
+            );
+        }
+
+        return array_values($stores);
+    }
+
     /**
      * Registers a new store in the database.
      *
@@ -29,5 +73,16 @@ class StoreModel extends CI_Model
         }
 
         return $query->row_array();
+    }
+
+    /**
+     * Registers a new user on a store in the database.
+     *
+     * @param array $data An associative array containing the user data.
+     * @return bool Returns true if the user was successfully registered, otherwise returns false.
+     */
+    public function register_user_on_store($data)
+    {
+        return $this->db->insert('store_users', $data);
     }
 }
