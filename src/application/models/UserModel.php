@@ -27,7 +27,7 @@ class UserModel extends CI_Model
         $this->container['phone'] = isset($session['phone']) ? $session['phone'] : null;
         $this->container['birth_date'] = isset($session['birth_date']) ? $session['birth_date'] : null;
         $this->container['profile_image'] = isset($session['profile_image']) ? $session['profile_image'] : null;
-        $this->container['roles'] = isset($session['roles']) ? $session['roles'] : null;
+        $this->container['isAdmin'] = isset($session['isAdmin']) ? $session['isAdmin'] : null;
 
         parent::__construct();
     }
@@ -50,14 +50,14 @@ class UserModel extends CI_Model
      */
     public function register_user($data)
     {
-        $this->db->insert('users', $data);
+        $this->db->insert('user_system', $data);
 
         $user_id = $this->db->insert_id();
 
-        $this->db->select('id, username, first_name, last_name, email, phone, birth_date, profile_image, roles');
+        $this->db->select('id, username, first_name, last_name, email, phone, birth_date, profile_image, isAdmin');
         $this->db->where('id', $user_id);
 
-        $query = $this->db->get('users');
+        $query = $this->db->get('user_system');
         $was_created = $query->num_rows() > 0;
 
         if (!$was_created) {
@@ -86,13 +86,13 @@ class UserModel extends CI_Model
             phone, 
             birth_date, 
             profile_image, 
-            roles'
+            isAdmin'
         );
 
         $this->db->where('email', $email);
         $this->db->where('password', md5($password));
 
-        $user = $this->db->get('users')->row_array();
+        $user = $this->db->get('user_system')->row_array();
 
         return $user;
     }
@@ -114,7 +114,7 @@ class UserModel extends CI_Model
             'phone' => $this->container['phone'],
             'birth_date' => $this->container['birth_date'],
             'profile_image' => $this->container['profile_image'],
-            'roles' => $this->container['roles'],
+            'isAdmin' => $this->container['isAdmin'],
         );
 
         return $user_data;
@@ -337,25 +337,25 @@ class UserModel extends CI_Model
     }
 
     /**
-     * Gets roles
+     * Gets isAdmin
      *
      * @return array
      */
-    public function getRoles()
+    public function getIsAdmin()
     {
-        return $this->container['roles'];
+        return $this->container['isAdmin'];
     }
 
     /**
-     * Sets roles
+     * Sets isAdmin
      *
-     * @param array $roles roles
+     * @param array $isAdmin isAdmin
      *
      * @return $this
      */
-    public function setRoles($roles)
+    public function setIsAdmin($isAdmin)
     {
-        $this->container['roles'] = $roles;
+        $this->container['isAdmin'] = $isAdmin;
 
         return $this;
     }

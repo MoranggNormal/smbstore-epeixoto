@@ -80,7 +80,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules(
             'email',
             'Email',
-            'required|valid_email[users.email]',
+            'required|valid_email[user_system.email]',
             array(
                 'required' => 'You have not provided %s.',
             )

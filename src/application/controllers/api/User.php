@@ -56,7 +56,7 @@ class User extends CI_Controller
 		$this->form_validation->set_rules(
 			'email',
 			'Email',
-			'required|valid_email|is_unique[users.email]',
+			'required|valid_email|is_unique[user_system.email]',
 			array(
 				'required'      => 'You have not provided %s.',
 				'is_unique'     => 'This %s already exists.'
