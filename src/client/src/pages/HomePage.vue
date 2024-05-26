@@ -139,7 +139,7 @@
           :key="store.id"
         >
           <h5>
-            {{ store.name }}
+            {{ store.name }} - ID:{{ store.id }} 
           </h5>
           <article>
             <div
@@ -178,7 +178,7 @@
                 </div>
                 <div class="col s9">
                   <div class="capitalize">
-                    {{ user.username }}
+                    {{ user.username }} - ID:{{ user.id }} 
                   </div>
                   <div>
                     Tel.:
