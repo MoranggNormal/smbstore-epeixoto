@@ -6,7 +6,7 @@ class StoreModel extends CI_Model
         parent::__construct();
     }
 
-    public function get_store_and_users()
+    public function get_store_and_active_users()
     {
         $this->db->select(
             'store.id as store_id, 
@@ -18,10 +18,13 @@ class StoreModel extends CI_Model
             store_users.email as user_email, 
             store_users.phone as user_phone, 
             store_users.birth_date as user_birth_date,
-            store_users.profile_image as user_profile_image'
+            store_users.profile_image as user_profile_image,
+            store_users.isActive as user_isActive'
         );
         $this->db->from('store');
+        $this->db->where('store_users.isActive', true);
         $this->db->join('store_users', 'store.id = store_users.store_id');
+
         $query = $this->db->get();
 
         $stores = array();
@@ -44,6 +47,7 @@ class StoreModel extends CI_Model
                 'phone' => $row->user_phone,
                 'birth_date' => $row->user_birth_date,
                 'profile_image' => $row->user_profile_image,
+                'isActive' => $row->user_isActive,
             );
         }
 
@@ -84,5 +88,10 @@ class StoreModel extends CI_Model
     public function register_user_on_store($data)
     {
         return $this->db->insert('store_users', $data);
+    }
+
+    public function set_user_as_inactive($data)
+    {
+        return $this->db->update('store_users', $data);
     }
 }

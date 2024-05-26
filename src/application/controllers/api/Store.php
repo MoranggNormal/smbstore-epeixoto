@@ -29,7 +29,7 @@ class Store extends CI_Controller
 
 	public function index()
 	{
-		$stores_and_users = $this->StoreModel->get_store_and_users();
+		$stores_and_users = $this->StoreModel->get_store_and_active_users();
 
 		if (!$stores_and_users) {
 			return $this->output
@@ -38,7 +38,7 @@ class Store extends CI_Controller
 				->set_output(json_encode(
 					array(
 						'status' => 'error',
-						'message' => 'Store registration failed'
+						'message' => 'Failed to retrieve stores and users'
 					)
 				));
 		}
@@ -175,5 +175,40 @@ class Store extends CI_Controller
 			->set_content_type('application/json')
 			->set_status_header(http_response_code_map('CREATED'))
 			->set_output(json_encode(array('status' => 'success', 'message' => 'User created successfully')));
+	}
+
+	public function delete_store_user()
+	{
+		$this->form_validation->set_rules('userId', 'userId', 'required',);
+
+		if ($this->form_validation->run() === FALSE) {
+			return $this->output
+				->set_content_type('application/json')
+				->set_status_header(http_response_code_map('BAD_REQUEST'))
+				->set_output(validation_errors());
+		}
+
+		$data = array(
+			'id' 	=> $this->input->post('userId'),
+			'isActive' => false
+		);
+
+		$deleted = $this->StoreModel->set_user_as_inactive($data);
+
+		if (!$deleted) {
+			return $this->output
+				->set_content_type('application/json')
+				->set_status_header(http_response_code_map('BAD_REQUEST'))
+				->set_output(json_encode(
+					array(
+						'status' => 'error',
+						'message' => 'Store registration failed'
+					)
+				));
+		}
+
+		return $this->output
+			->set_content_type('application/json')
+			->set_status_header(http_response_code_map('OK'));
 	}
 }

@@ -28,6 +28,7 @@ CREATE TABLE `store_users` (
   `phone` varchar(255) NOT NULL,
   `birth_date` timestamp NOT NULL,
   `profile_image` varchar(255) DEFAULT null,
+  `isActive` bool DEFAULT false,
   `roles` varchar(255) DEFAULT null,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -50,8 +51,17 @@ CREATE TABLE `ci_sessions` (
   `data` blob NOT NULL
 );
 
-ALTER TABLE `store_users` ADD FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE CASCADE;
+ALTER TABLE
+  `store_users`
+ADD
+  FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `store_user_roles` ADD FOREIGN KEY (`user_id`) REFERENCES `store_users` (`id`) ON DELETE CASCADE;
+ALTER TABLE
+  `store_user_roles`
+ADD
+  FOREIGN KEY (`user_id`) REFERENCES `store_users` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `store_user_roles` ADD FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+ALTER TABLE
+  `store_user_roles`
+ADD
+  FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
