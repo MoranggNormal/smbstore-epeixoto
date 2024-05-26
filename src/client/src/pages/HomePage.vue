@@ -40,7 +40,7 @@
               <input
                 type="radio"
                 name="ordered"
-                @input="orderUsersBy('userBirthdate')"
+                @input="orderUsersBy('userId')"
               />
               <span>(Usuarios) Ordem de cadastro</span>
             </label>
@@ -50,7 +50,7 @@
               <input
                 type="radio"
                 name="ordered"
-                @input="orderUsersBy('userBirthdate')"
+                @input="orderUsersBy('userName')"
               />
               <span>(Usuarios) Nome</span>
             </label>
@@ -138,9 +138,7 @@
           v-for="store in filteredStores"
           :key="store.id"
         >
-          <h5>
-            {{ store.name }} - ID:{{ store.id }} 
-          </h5>
+          <h5>{{ store.name }} - ID:{{ store.id }}</h5>
           <article>
             <div
               class="col l5 card-panel"
@@ -178,7 +176,7 @@
                 </div>
                 <div class="col s9">
                   <div class="capitalize">
-                    {{ user.username }} - ID:{{ user.id }} 
+                    {{ user.username }} - ID:{{ user.id }}
                   </div>
                   <div>
                     Tel.:
@@ -250,18 +248,32 @@ export default {
           this.filteredStores = this.filteredStores.sort((a, b) => a.id - b.id);
           break;
         case "userId":
-          this.filteredStores = this.filteredStores.sort((a, b) => a.id - b.id);
+          this.filteredStores = this.filteredStores.map((store) => {
+            return {
+              ...store,
+              users: store.users.sort((a, b) => a.id - b.id),
+            };
+          });
           break;
         case "userName":
-          this.filteredStores = this.filteredStores.sort((a, b) =>
-            a.users[0].username.localeCompare(b.users[0].username)
-          );
+          this.filteredStores = this.filteredStores.map((store) => {
+            return {
+              ...store,
+              users: store.users.sort((a, b) =>
+                a.username.localeCompare(b.username)
+              ),
+            };
+          });
           break;
         case "userBirthdate":
-          this.filteredStores = this.filteredStores.sort(
-            (a, b) =>
-              new Date(a.users[0].birth_date) - new Date(b.users[0].birth_date)
-          );
+          this.filteredStores = this.filteredStores.map((store) => {
+            return {
+              ...store,
+              users: store.users.sort(
+                (a, b) => new Date(a.birth_date) - new Date(b.birth_date)
+              ),
+            };
+          });
           break;
         default:
           break;
