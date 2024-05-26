@@ -31,7 +31,7 @@
         style="background-color: white; padding-top: 1em"
       >
         <div class="nav-content row">
-          <ul class="tabs col s12 m5">
+          <ul class="tabs col s12">
             <li class="text-black">
               <label for="startDate">
                 Data minima
@@ -46,7 +46,7 @@
               </label>
             </li>
           </ul>
-          <ul class="tabs col s12 m5">
+          <ul class="tabs col s12">
             <li class="text-black">
               <label for="endDate">
                 Data maxima
