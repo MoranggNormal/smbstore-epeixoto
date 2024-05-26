@@ -246,20 +246,20 @@ export default {
 }
 
 .container .store-list .card-panel {
-  margin: 0 1em;
+  margin: 1em;
   position: relative;
 }
 
 .container .store-list .card-panel > .edit {
   position: absolute;
-  top: 0%;
-  right: 4em;
+  top: 0.5em;
+  right: 5em;
 }
 
 .container .store-list .card-panel > .delete {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 0.5em;
+  right: 0.5em;
 }
 
 .container .store-list .card-panel > .valign-wrapper {
