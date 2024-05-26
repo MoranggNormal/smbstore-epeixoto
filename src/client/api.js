@@ -1,4 +1,3 @@
-// const API_URL = process.env.
-const API_URL = "https://smb.pixellabo.com.br/api";
+const API_URL = "http://localhost/api";
 
 export { API_URL };
