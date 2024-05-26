@@ -1,3 +1,3 @@
-const API_URL = "http://localhost/api";
+const API_URL = process.env.API_URL
 
 export { API_URL };
