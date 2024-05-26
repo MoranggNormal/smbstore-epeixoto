@@ -5,6 +5,69 @@
         <v-link href="/novaloja" class="">Registrar nova loja</v-link>
         <v-link href="/novousuario" class="">Registrar usuario</v-link>
       </div>
+
+      <div class="">
+        Ordenar por (Lojas):
+        <div class="ordered">
+          <p>
+            <label>
+              <input
+                type="radio"
+                name="ordered"
+                @input="orderUsersBy('storeName')"
+              />
+              <span>(Loja) Nome</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                name="ordered"
+                @input="orderUsersBy('storeId')"
+              />
+              <span>(Loja) Ordem de cadastro</span>
+            </label>
+          </p>
+        </div>
+      </div>
+
+      <div class="">
+        Ordenar por (Usuarios):
+        <div class="ordered">
+          <p>
+            <label>
+              <input
+                type="radio"
+                name="ordered"
+                @input="orderUsersBy('userBirthdate')"
+              />
+              <span>(Usuarios) Ordem de cadastro</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                name="ordered"
+                @input="orderUsersBy('userBirthdate')"
+              />
+              <span>(Usuarios) Nome</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                name="ordered"
+                @input="orderUsersBy('userBirthdate')"
+              />
+              <span>(Usuarios) Data de nascimento - Crescente</span>
+            </label>
+          </p>
+        </div>
+      </div>
+
       <nav class="nav-extended">
         <div class="nav-content">
           <ul class="tabs">
@@ -176,6 +239,34 @@ export default {
       this.store.setUserStoreToBeEdited(userId);
       this.$pushLocation("/editarUsuario");
     },
+    orderUsersBy(type) {
+      switch (type) {
+        case "storeName":
+          this.filteredStores = this.filteredStores.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
+          break;
+        case "storeId":
+          this.filteredStores = this.filteredStores.sort((a, b) => a.id - b.id);
+          break;
+        case "userId":
+          this.filteredStores = this.filteredStores.sort((a, b) => a.id - b.id);
+          break;
+        case "userName":
+          this.filteredStores = this.filteredStores.sort((a, b) =>
+            a.users[0].username.localeCompare(b.users[0].username)
+          );
+          break;
+        case "userBirthdate":
+          this.filteredStores = this.filteredStores.sort(
+            (a, b) =>
+              new Date(a.users[0].birth_date) - new Date(b.users[0].birth_date)
+          );
+          break;
+        default:
+          break;
+      }
+    },
     withFilter() {
       if (
         this.search.name ||
@@ -300,5 +391,11 @@ ul.tabs .tab {
 
 ul.tabs .tab input::placeholder {
   color: black;
+}
+
+.container .ordered {
+  display: flex;
+  flex-flow: row;
+  gap: 1em;
 }
 </style>
