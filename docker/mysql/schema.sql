@@ -8,7 +8,7 @@ CREATE TABLE `user_system` (
   `phone` varchar(255) NOT NULL,
   `birth_date` timestamp NOT NULL,
   `profile_image` varchar(255) DEFAULT null,
-  `isAdmin` bool DEFAULT false,
+  `isAdmin` boolean DEFAULT false,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE `store_users` (
   `phone` varchar(255) NOT NULL,
   `birth_date` timestamp NOT NULL,
   `profile_image` varchar(255) DEFAULT null,
-  `isActive` bool DEFAULT false,
+  `isActive` boolean DEFAULT false,
   `roles` varchar(255) DEFAULT null,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
