@@ -27,7 +27,7 @@
               <label for="password">Password</label>
             </div>
             <span
-              class="login-error-message"
+              class="form-error-message"
               v-if="auth.authError.hasAuthError"
             >
               {{ auth.authError.message }}
