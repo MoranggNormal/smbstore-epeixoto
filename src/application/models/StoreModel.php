@@ -98,6 +98,8 @@ class StoreModel extends CI_Model
 
     public function set_user_as_inactive($data)
     {
-        return $this->db->update('store_users', $data);
+        $this->db->where('id', $data["id"]);
+
+        return $this->db->update('store_users', array('isActive' => 0));
     }
 }
