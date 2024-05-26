@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { login, getSessionUserData, register } from "../services/auth";
+import { login, getSessionUserData, register, logout } from "../services/auth";
 
 export const useAuth = defineStore("auth", {
   state: () => ({
@@ -53,6 +53,22 @@ export const useAuth = defineStore("auth", {
         this.authenticated = true;
       } catch (error) {
         this.authenticated = false;
+      }
+    },
+
+    async logout() {
+      try {
+        await logout();
+
+        this.user = {};
+        this.authenticated = false;
+        return true;
+      } catch (error) {
+        this.authenticated = false;
+        this.authError = {
+          hasAuthError: true,
+          message: error.message,
+        };
       }
     },
 

@@ -30,7 +30,9 @@
           </li>
 
           <li v-if="auth.authenticated" class="nav-item">
-            <button class="btn waves-effect waves-light ">Sair</button>
+            <button @click="logout" class="btn waves-effect waves-light">
+              Sair
+            </button>
           </li>
         </ul>
       </div>
@@ -56,6 +58,15 @@ export default {
       auth: useAuth(),
     };
   },
+  methods: {
+    logout() {
+      const has_logged_out = this.auth.logout();
+
+      if (has_logged_out) {
+        this.$pushLocation();
+      }
+    },
+  },
 };
 </script>
 
@@ -77,5 +88,4 @@ export default {
 .nav-item:hover {
   opacity: 0.8;
 }
-
 </style>
