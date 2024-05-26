@@ -79,7 +79,7 @@
           <div class="file-field input-field col s12">
             <div class="btn">
               <span>Upload</span>
-              <input type="file" @change="setFile" required />
+              <input type="file" @change="setFile" accept="image/*" required />
             </div>
             <div class="file-path-wrapper">
               <input
