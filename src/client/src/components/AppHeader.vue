@@ -22,7 +22,7 @@
                 <img
                   :src="['http://localhost/' + auth.user.profile_image]"
                   alt=""
-                  class="profile-pic circle responsive-img"
+                  class="profile-pic circle responsive-img hide-on-med-and-down"
                 />
                 <span>{{ auth.user.username }}</span>
               </div>

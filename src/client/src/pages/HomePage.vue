@@ -26,12 +26,15 @@
         </div>
       </nav>
 
-      <nav class="nav-extended">
-        <div class="nav-content">
-          <ul class="tabs">
-            <li class="tab text-black">
-              Data minima
+      <nav
+        class="nav-extended"
+        style="background-color: white; padding-top: 1em"
+      >
+        <div class="nav-content row">
+          <ul class="tabs col s12 m3">
+            <li class="text-black">
               <label for="startDate">
+                Data minima
                 <input
                   type="date"
                   id="startDate"
@@ -42,10 +45,11 @@
                 />
               </label>
             </li>
-
-            <li class="tab text-black" style="margin-left: 10em">
-              Data maxima
+          </ul>
+          <ul class="tabs col s12 m3">
+            <li class="text-black">
               <label for="endDate">
+              Data maxima
                 <input
                   type="date"
                   id="endDate"
@@ -76,7 +80,7 @@
           </h5>
           <article>
             <div
-              class="col s5 card-panel"
+              class="col l5 card-panel"
               v-for="user in store.users"
               :key="user.id"
             >
