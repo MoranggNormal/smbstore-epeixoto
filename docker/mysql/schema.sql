@@ -25,7 +25,6 @@ CREATE TABLE `store_users` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) UNIQUE NOT NULL,
-  `password` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `birth_date` timestamp NOT NULL,
   `profile_image` varchar(255) DEFAULT null,
