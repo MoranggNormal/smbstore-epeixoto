@@ -38,11 +38,6 @@ export const useStores = defineStore("stores", {
       try {
         await deleteStoreUser(userId);
 
-        if (this.stores.length === 1) {
-          this.stores = [];
-          return true;
-        }
-
         this.stores = this.stores.map((store) => {
           return {
             ...store,
