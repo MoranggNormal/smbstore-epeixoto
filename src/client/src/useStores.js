@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 
-import { registerUserOnStore, deleteStoreUser, initialize } from "../services/stores";
+import {
+  registerUserOnStore,
+  deleteStoreUser,
+  initialize,
+} from "../services/stores";
 
 export const useStores = defineStore("stores", {
   state: () => ({
@@ -40,7 +44,10 @@ export const useStores = defineStore("stores", {
         }
 
         this.stores = this.stores.map((store) => {
-          return store.users.filter((id) => id != userId);
+          return {
+            ...store,
+            users: store.users.filter((user) => user.id !== userId),
+          };
         });
 
         return true;
