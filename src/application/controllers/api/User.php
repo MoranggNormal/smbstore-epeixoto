@@ -122,7 +122,10 @@ class User extends CI_Controller
 			 * @param array $data The data for the new user.
 			 * @return void
 			 */
-			$this->UserModel->register_user($data);
+			$created = $this->UserModel->register_user($data);
+
+
+			$this->session->set_userdata($this->user_session_data, $created);
 
 			/**
 			 * Returns a JSON response with a status code indicating successful creation.
@@ -131,8 +134,10 @@ class User extends CI_Controller
 			 */
 			return $this->output
 				->set_content_type('application/json')
-				->set_status_header(http_response_code_map('CREATED'));
+				->set_status_header(http_response_code_map('CREATED'))
+				->set_output(json_encode($created));
 		} catch (\Exception $e) {
+
 			/**
 			 * Returns a JSON response with an error message and status code.
 			 *
@@ -145,7 +150,7 @@ class User extends CI_Controller
 				->set_output(json_encode(
 					array(
 						'status' => 'error',
-						'message' => json_encode($e->getMessage())
+						'message' => $e->getMessage()
 					)
 				));
 		}

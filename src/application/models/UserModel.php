@@ -50,7 +50,21 @@ class UserModel extends CI_Model
      */
     public function register_user($data)
     {
-        return $this->db->insert('users', $data);
+        $this->db->insert('users', $data);
+
+        $user_id = $this->db->insert_id();
+
+        $this->db->select('id, username, first_name, last_name, email, phone, birth_date, profile_image, roles');
+        $this->db->where('id', $user_id);
+
+        $query = $this->db->get('users');
+        $was_created = $query->num_rows() > 0;
+
+        if (!$was_created) {
+            return false;
+        }
+
+        return $query->row_array();
     }
 
     /**
