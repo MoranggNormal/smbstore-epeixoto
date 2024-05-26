@@ -28,7 +28,7 @@ CREATE TABLE `store_users` (
   `phone` varchar(255) NOT NULL,
   `birth_date` timestamp NOT NULL,
   `profile_image` varchar(255) DEFAULT null,
-  `isActive` boolean DEFAULT false,
+  `isActive` boolean DEFAULT true,
   `roles` varchar(255) DEFAULT null,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
