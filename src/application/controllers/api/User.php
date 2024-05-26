@@ -7,7 +7,7 @@ class User extends CI_Controller
 	 * UserController constructor.
 	 * Loads necessary models, helpers, and libraries.
 	 *
-	 * @author [Your Name]
+	 * @author Euler Peixoto
 	 */
 	public function __construct()
 	{
