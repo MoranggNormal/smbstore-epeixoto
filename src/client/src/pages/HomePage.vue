@@ -49,7 +49,7 @@
           <ul class="tabs col s12 m3">
             <li class="text-black">
               <label for="endDate">
-              Data maxima
+                Data maxima
                 <input
                   type="date"
                   id="endDate"
@@ -100,8 +100,8 @@
                   <img
                     :src="
                       user.profile_image
-                        ? 'http://localhost/' + user.profile_image
-                        : 'https://placehold.co/96x96?text=Imagem+não+encontrada'
+                        ? SERVER_HOST + user.profile_image
+                        : IMAGE_NOT_FOUND_URL
                     "
                     alt=""
                     class="responsive-img"
@@ -138,6 +138,8 @@ import { useStores } from "../useStores";
 import MainLayout from "@/layouts/MainLayout.vue";
 import VLink from "@/components/VLink.vue";
 
+import { SERVER_HOST, IMAGE_NOT_FOUND_URL } from "../../constants";
+
 export default {
   name: "HomePage",
   components: {
@@ -155,6 +157,8 @@ export default {
         endDate: "",
       },
       filteredStores: [],
+      SERVER_HOST,
+      IMAGE_NOT_FOUND_URL,
     };
   },
   methods: {
