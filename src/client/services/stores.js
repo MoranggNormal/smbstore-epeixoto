@@ -44,6 +44,26 @@ export async function getStoreList() {
     });
 }
 
+export async function registerStore({ store_name }) {
+  let data = new FormData();
+
+  data.append("name", store_name);
+
+  return await axios
+    .post("/store/register", data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data);
+      } else {
+        console.log(error.message);
+        throw new Error(error.message);
+      }
+    });
+}
+
 /**
  * Registers a new user on a specific store.
  *

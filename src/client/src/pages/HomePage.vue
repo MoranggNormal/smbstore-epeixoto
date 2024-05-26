@@ -2,7 +2,7 @@
   <main-layout>
     <div class="container">
       <div class="top-links">
-        <v-link href="/" class="">Registrar nova loja</v-link>
+        <v-link href="/novaloja" class="">Registrar nova loja</v-link>
         <v-link href="/novousuario" class="">Registrar usuario</v-link>
       </div>
       <nav class="nav-extended">
