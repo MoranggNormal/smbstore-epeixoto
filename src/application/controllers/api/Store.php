@@ -49,6 +49,28 @@ class Store extends CI_Controller
 			->set_output(json_encode($stores_and_users));
 	}
 
+	public function get_stores()
+	{
+		$stores = $this->StoreModel->get_stores();
+
+		if (!$stores) {
+			return $this->output
+				->set_content_type('application/json')
+				->set_status_header(http_response_code_map('BAD_REQUEST'))
+				->set_output(json_encode(
+					array(
+						'status' => 'error',
+						'message' => 'Failed to retrieve stores'
+					)
+				));
+		}
+
+		return $this->output
+			->set_content_type('application/json')
+			->set_status_header(http_response_code_map('OK'))
+			->set_output(json_encode($stores));
+	}
+
 	/**
 	 * Registers a new store.
 	 *

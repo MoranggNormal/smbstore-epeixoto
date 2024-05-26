@@ -54,6 +54,12 @@ class StoreModel extends CI_Model
         return array_values($stores);
     }
 
+    public function get_stores()
+    {
+        $query = $this->db->get('store');
+        return $query->result_array();
+    }
+
     /**
      * Registers a new store in the database.
      *
