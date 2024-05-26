@@ -1,6 +1,10 @@
 <template>
   <main-layout>
     <div class="container">
+      <div class="top-links">
+        <v-link href="/" class="">Registrar nova loja</v-link>
+        <v-link href="/novousuario" class="">Registrar usuario</v-link>
+      </div>
       <nav class="nav-extended">
         <div class="nav-content">
           <ul class="tabs">
@@ -128,11 +132,13 @@ import { useAuth } from "@/useAuth";
 import { useStores } from "../useStores";
 
 import MainLayout from "@/layouts/MainLayout.vue";
+import VLink from "@/components/VLink.vue";
 
 export default {
   name: "HomePage",
   components: {
     MainLayout,
+    VLink,
   },
   data() {
     return {
@@ -155,7 +161,12 @@ export default {
     },
 
     withFilter() {
-      if (this.search.name || this.search.email || this.search.startDate) {
+      if (
+        this.search.name ||
+        this.search.email ||
+        this.search.startDate ||
+        this.search.endDate
+      ) {
         const searchName = this.search.name.toLowerCase();
         const searchEmail = this.search.email.toLowerCase();
         const searchStartDate = this.search.startDate;
@@ -222,6 +233,12 @@ export default {
   display: flex;
   flex-flow: column;
   justify-content: center;
+}
+
+.container .top-links {
+  margin-bottom: 1em;
+  display: flex;
+  gap: 2em;
 }
 
 .container .store-list {
