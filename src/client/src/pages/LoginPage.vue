@@ -26,16 +26,22 @@
               />
               <label for="password">Password</label>
             </div>
-            <span
-              class="form-error-message"
-              v-if="auth.authError.hasAuthError"
-            >
+            <span class="form-error-message" v-if="auth.authError.hasAuthError">
               {{ auth.authError.message }}
             </span>
             <div class="col s12">
               <button type="submit" class="btn waves-effect waves-light">
                 Entrar
               </button>
+            </div>
+
+            <div class="col s12">
+              <v-link
+                href="/cadastro"
+                class="btn register-link"
+              >
+                Não possui uma conta? Clique aqui para criar
+              </v-link>
             </div>
           </div>
         </form>
@@ -48,11 +54,13 @@
 import { useAuth } from "@/useAuth";
 
 import MainLayout from "@/layouts/MainLayout.vue";
+import VLink from "@/components/VLink.vue";
 
 export default {
   name: "LoginPage",
   components: {
     MainLayout,
+    VLink
   },
 
   data() {
@@ -73,13 +81,6 @@ export default {
       }
     },
   },
-  created() {
-    const cookie = this.$cookies.get("ci_session");
-
-    if (cookie) {
-      this.$pushLocation();
-    }
-  },
 };
 </script>
 
@@ -92,5 +93,9 @@ export default {
 
 .container button[type="submit"] {
   width: 100%;
+}
+
+.container .register-link{
+  margin-top: 1em;
 }
 </style>
