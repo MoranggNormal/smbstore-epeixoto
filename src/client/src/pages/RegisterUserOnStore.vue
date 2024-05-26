@@ -143,7 +143,6 @@ export default {
   },
   methods: {
     async submitForm() {
-      console.log(this.formData);
       const created = await this.store.registerUserOnStore(this.formData);
 
       if (created) {
