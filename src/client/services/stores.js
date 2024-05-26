@@ -44,6 +44,15 @@ export async function getStoreList() {
     });
 }
 
+/**
+ * Registers a new store.
+ *
+ * @param {string} store_name - The name of the store to be registered.
+ *
+ * @returns {Promise<Object>} - A promise that resolves to the server response data containing the newly registered store's information.
+ *
+ * @throws {Error} - If the server returns an error response, the error message will be thrown.
+ */
 export async function registerStore({ store_name }) {
   let data = new FormData();
 
